@@ -9,7 +9,7 @@ class GameTests extends JUnitSuite with Matchers with TableDrivenPropertyChecks 
         new Game(board)
     }
 
-    def AssertState(board: Array[Array[Char]], state: Char) = {
+    def assertState(board: Array[Array[Char]], state: Char) = {
         val game = createGame(board)
 
         val actual = game.getState
@@ -17,22 +17,19 @@ class GameTests extends JUnitSuite with Matchers with TableDrivenPropertyChecks 
         actual shouldBe state
     }
 
-    def AssertState(boards: TableFor1[Array[Array[Char]]], state: Char) = {
-        forAll(boards) {
-            (board) =>
-                AssertState(board, state)
-        }
+    def assertStateForAll(boards: TableFor1[Array[Array[Char]]], state: Char) = {
+        forAll(boards) { board: Array[Array[Char]] => assertState(board, state) }
     }
 
     @Test
-    def state_noMarks_isUnknown() = {
+    def state_noMarks_-() = {
         val emptyBoard = Array.fill(3, 3)('-')
-        AssertState(emptyBoard, '-')
+        assertState(emptyBoard, '-')
     }
 
     @Test
-    def state_noThrees_isUnknown() = {
-        AssertState(Table(
+    def state_noThrees_-() = {
+        assertStateForAll(Table(
             "board",
             Array(
                 Array('o', 'o', '-'),
@@ -63,8 +60,8 @@ class GameTests extends JUnitSuite with Matchers with TableDrivenPropertyChecks 
     }
 
     @Test
-    def state_threeOsInRow_isOwon() = {
-        AssertState(Table(
+    def state_threeOsInRow_o() = {
+        assertStateForAll(Table(
             "board",
             Array(
                 Array('o', 'o', 'o'),
@@ -80,6 +77,18 @@ class GameTests extends JUnitSuite with Matchers with TableDrivenPropertyChecks 
                 Array('-', '-', '-'),
                 Array('-', '-', '-'),
                 Array('o', 'o', 'o')
+            )
+        ), 'o')
+    }
+
+    @Test
+    def state_threeOsInColumn_o() = {
+        assertStateForAll(Table(
+            "board",
+            Array(
+                Array('o', 'o', 'o'),
+                Array('-', '-', '-'),
+                Array('-', '-', '-')
             )
         ), 'o')
     }
