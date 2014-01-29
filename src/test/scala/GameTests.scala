@@ -32,29 +32,29 @@ class GameTests extends JUnitSuite with Matchers with TableDrivenPropertyChecks 
         assertStateForAll(Table(
             "board",
             Array(
-                Array('o', 'o', '-'),
+                Array('x', 'x', '-'),
                 Array('-', '-', '-'),
                 Array('-', '-', '-')
             ),
             Array(
-                Array('o', '-', 'o'),
+                Array('x', '-', 'x'),
                 Array('-', '-', '-'),
                 Array('-', '-', '-')
             ),
             Array(
                 Array('-', '-', '-'),
-                Array('o', '-', '-'),
+                Array('x', '-', '-'),
                 Array('-', '-', '-')
             ),
             Array(
                 Array('-', '-', '-'),
-                Array('o', 'o', '-'),
+                Array('x', 'x', '-'),
                 Array('-', '-', '-')
             ),
             Array(
                 Array('-', '-', '-'),
-                Array('o', '-', '-'),
-                Array('o', '-', 'o')
+                Array('x', '-', '-'),
+                Array('x', '-', 'x')
             )
         ), '-')
     }
@@ -86,10 +86,54 @@ class GameTests extends JUnitSuite with Matchers with TableDrivenPropertyChecks 
         assertStateForAll(Table(
             "board",
             Array(
-                Array('o', 'o', 'o'),
-                Array('-', '-', '-'),
-                Array('-', '-', '-')
+                Array('o', '-', '-'),
+                Array('o', '-', '-'),
+                Array('o', '-', '-')
+            ),
+            Array(
+                Array('-', 'o', '-'),
+                Array('-', 'o', '-'),
+                Array('-', 'o', '-')
+            ),
+            Array(
+                Array('-', '-', 'o'),
+                Array('-', '-', 'o'),
+                Array('-', '-', 'o')
             )
         ), 'o')
+    }
+
+    @Test
+    def state_threeOsInDiagonal_o() = {
+        assertStateForAll(Table(
+            "board",
+            Array(
+                Array('o', '-', '-'),
+                Array('-', 'o', '-'),
+                Array('-', '-', 'o')
+            ),
+            Array(
+                Array('-', '-', 'o'),
+                Array('-', 'o', '-'),
+                Array('o', '-', '-')
+            )
+        ), 'o')
+    }
+
+    @Test
+    def state_threeXsInDiagonal_x() = {
+        assertStateForAll(Table(
+            "board",
+            Array(
+                Array('x', '-', '-'),
+                Array('-', 'x', '-'),
+                Array('-', '-', 'x')
+            ),
+            Array(
+                Array('-', '-', 'x'),
+                Array('-', 'x', '-'),
+                Array('x', '-', '-')
+            )
+        ), 'x')
     }
 }
