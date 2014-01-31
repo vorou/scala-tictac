@@ -136,4 +136,18 @@ class GameTests extends JUnitSuite with Matchers with TableDrivenPropertyChecks 
             )
         ), 'x')
     }
+
+    @Test
+    def put_putsThirdX_xWins() = {
+        val sut = createGame(Array(
+            Array('x','x','-'),
+            Array('-','-','-'),
+            Array('-','-','-')
+        ))
+
+        sut.put('x', (1, 3))
+
+        val actual = sut.getState
+        actual shouldBe 'x'
+    }
 }

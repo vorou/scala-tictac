@@ -9,7 +9,11 @@ class Game(val board: Array[Array[Char]]) {
         '-'
     }
 
-    def hasThree(mark: Char = 'o'): Boolean = {
+    def put(mark: Char, position: (Int, Int)) = {
+        board(position._1 - 1)(position._2 - 1) = mark
+    }
+
+    def hasThree(mark: Char): Boolean = {
         val rows = board
         val columns = Array(
             Array(board(0)(0), board(1)(0), board(2)(0)),
